@@ -3,7 +3,7 @@
     <parent>
         <artifactId>in28minutes-mvc</artifactId>
         <groupId>com.in28minutes</groupId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -22,7 +22,7 @@
         <dependency>
             <groupId>com.in28minutes</groupId>
             <artifactId>in28minutes-core</artifactId>
-            <version>1.1-SNAPSHOT</version>
+            <version>1.2-SNAPSHOT</version>
         </dependency>
 
         <!-- javaee web api -->
