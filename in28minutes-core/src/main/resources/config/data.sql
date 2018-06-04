@@ -1,5 +1,17 @@
 --users
-INSERT INTO user VALUES (1,'UserName','user@in28minutes.com', 'password');
+INSERT INTO user VALUES (12,'UserName','user@in28minutes.com', 'password');
+
+INSERT INTO user VALUES (1,'user1','user1@in28minutes.com', 'password');
+INSERT INTO user VALUES (2,'user2','user2@in28minutes.com', 'password');
+INSERT INTO user VALUES (3,'user3','user3@in28minutes.com', 'password');
+INSERT INTO user VALUES (4,'user4','user4@in28minutes.com', 'password');
+INSERT INTO user VALUES (5,'user5','user5@in28minutes.com', 'password');
+INSERT INTO user VALUES (6,'user6','user6@in28minutes.com', 'password');
+INSERT INTO user VALUES (7,'user7','user7@in28minutes.com', 'password');
+INSERT INTO user VALUES (8,'user8','user8@in28minutes.com', 'password');
+INSERT INTO user VALUES (9,'user9','user9@in28minutes.com', 'password');
+INSERT INTO user VALUES (10,'user10','user10@in28minutes.com', 'password');
+INSERT INTO user VALUES (11,'user11','user11@in28minutes.com', 'password');
 
 --todos
 
