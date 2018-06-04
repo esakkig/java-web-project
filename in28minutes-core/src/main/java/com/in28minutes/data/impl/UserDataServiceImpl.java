@@ -8,7 +8,7 @@ import com.in28minutes.domain.User;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-
+import com.in28minutes.data.impl.UserSessionImpl;
 import java.util.List;
 
 @Repository
@@ -53,6 +53,12 @@ public class UserDataServiceImpl implements UserDataService {
 		query.setParameter("p_email", email);
 		query.setParameter("p_password", password);
 		List<User> users = query.getResultList();
+		
+		if(users != null && !users.isEmpty()) {
+		for (User user1 : users)
+		  UserSessionImpl.updateSessionStatus(user1.getName(), user1.getEmail(), "Active");
+		//System.out.println("================================================================"+ user1.getName() + " is Active");
+		}
 		return (users != null && !users.isEmpty());
 	}
 
