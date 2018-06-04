@@ -66,6 +66,8 @@ public class UserSessionImpl {
 		
 		try {
 			
+			  
+			
 			   makeJDBCConnection();
 			
 				String getQueryStatement = "SELECT * FROM usersession where UserID = ?";
@@ -80,7 +82,7 @@ public class UserSessionImpl {
 					        in28minutesPrepareStat.close();
 							String updateQueryStatement = "UPDATE usersession SET InstanceID=?,status=? WHERE UserID=?"; 
 							in28minutesPrepareStat = in28minutesConn.prepareStatement(updateQueryStatement);
-							in28minutesPrepareStat.setString(1, retrieveInstanceId());
+							in28minutesPrepareStat.setString(1, retrieveInstanceId(status));
 							in28minutesPrepareStat.setString(2, status);
 							in28minutesPrepareStat.setString(3, userid);
 							int rowsUpdated = in28minutesPrepareStat.executeUpdate();
@@ -95,7 +97,7 @@ public class UserSessionImpl {
 							in28minutesPrepareStat = in28minutesConn.prepareStatement(insertQueryStatement);
 							in28minutesPrepareStat.setString(1, userid);
 							in28minutesPrepareStat.setString(2, email);
-							in28minutesPrepareStat.setString(3, retrieveInstanceId());
+							in28minutesPrepareStat.setString(3, retrieveInstanceId(status));
 							in28minutesPrepareStat.setString(4, status);
 				 
 							// execute insert SQL statement
@@ -113,7 +115,10 @@ public class UserSessionImpl {
 				}
 	}
 	
-	private static String retrieveInstanceId() {
+	private static String retrieveInstanceId(String status) {
+		
+		if(status.equalsIgnoreCase("INActive"))
+			return null;
 		
 	    String EC2Id = null;
 	    String inputLine;
