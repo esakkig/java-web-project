@@ -1,5 +1,9 @@
 package com.in28minutes.data.impl;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -74,10 +78,11 @@ public class UserSessionImpl {
 				
 				if (resultSet.next()) {
 					        in28minutesPrepareStat.close();
-							String updateQueryStatement = "UPDATE usersession SET status=? WHERE UserID=?"; 
+							String updateQueryStatement = "UPDATE usersession SET InstanceID=?,status=? WHERE UserID=?"; 
 							in28minutesPrepareStat = in28minutesConn.prepareStatement(updateQueryStatement);
-							in28minutesPrepareStat.setString(1, status);
-							in28minutesPrepareStat.setString(2, userid);
+							in28minutesPrepareStat.setString(1, retrieveInstanceId());
+							in28minutesPrepareStat.setString(2, status);
+							in28minutesPrepareStat.setString(3, userid);
 							int rowsUpdated = in28minutesPrepareStat.executeUpdate();
 							if (rowsUpdated > 0)
 								System.out.println("An existing user was updated successfully!");
@@ -85,13 +90,13 @@ public class UserSessionImpl {
 				
 				else{
 					        in28minutesPrepareStat.close();
-							String insertQueryStatement = "insert into usersession (UserID,email,status) values (?,?,?)";
+							String insertQueryStatement = "insert into usersession (UserID,email,InstanceID,status) values (?,?,?)";
 				 
 							in28minutesPrepareStat = in28minutesConn.prepareStatement(insertQueryStatement);
 							in28minutesPrepareStat.setString(1, userid);
 							in28minutesPrepareStat.setString(2, email);
-							in28minutesPrepareStat.setString(3, status);
-							
+							in28minutesPrepareStat.setString(3, retrieveInstanceId());
+							in28minutesPrepareStat.setString(4, status);
 				 
 							// execute insert SQL statement
 							in28minutesPrepareStat.executeUpdate();
@@ -106,6 +111,22 @@ public class UserSessionImpl {
 				SQLException e) {
 					e.printStackTrace();
 				}
+	}
+	
+	private static String retrieveInstanceId() {
+		
+	    String EC2Id = null;
+	    String inputLine;
+	    try {
+	    URL EC2MetaData = new URL("http://169.254.169.254/latest/meta-data/instance-id");
+	    URLConnection EC2MD = EC2MetaData.openConnection();
+	    BufferedReader in = new BufferedReader(new InputStreamReader(EC2MD.getInputStream()));
+	    while ((inputLine = in.readLine()) != null) {
+	        EC2Id = inputLine;
+	    }
+	    in.close();
+	    } catch(Exception e) {}
+	    return EC2Id;
 	}
 
 	// Simple log utility
