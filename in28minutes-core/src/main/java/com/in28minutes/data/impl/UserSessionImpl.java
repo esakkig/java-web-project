@@ -92,7 +92,7 @@ public class UserSessionImpl {
 				
 				else{
 					        in28minutesPrepareStat.close();
-							String insertQueryStatement = "insert into usersession (UserID,email,InstanceID,status) values (?,?,?)";
+							String insertQueryStatement = "insert into usersession (UserID,email,InstanceID,status) values (?,?,?,?)";
 				 
 							in28minutesPrepareStat = in28minutesConn.prepareStatement(insertQueryStatement);
 							in28minutesPrepareStat.setString(1, userid);
